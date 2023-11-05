@@ -1,10 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import static java.lang.Double.parseDouble;
 
 public class Employee {
     private String firstName;
@@ -12,8 +5,6 @@ public class Employee {
     private String pesel;
     private String department;
     private double salary;
-
-    List<Employee> employeeList = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -57,52 +48,5 @@ public class Employee {
         return salary;
     }
 
-    public int numberEmployees(String department) {
-        int number = 0;
-        for (Employee employee : employeeList) {
-            if (employee.getDepartment().equals(department)) {
-                number++;
-            }
-        }
-        return number;
-    }
 
-    public void readEmployeesFile(File file) throws FileNotFoundException {
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String[] elements = scanner.nextLine().split(";");
-                employeeList.add(new Employee(elements[0], elements[1], elements[2], elements[3], parseDouble(elements[4])));
-
-            }
-        }
-    }
-
-    public double averageSalary() {
-        double average = 0;
-        for (Employee employee : employeeList) {
-            average += employee.getSalary();
-        }
-        return average / employeeList.size();
-    }
-
-    public double maxSalary() {
-        double max = 0;
-        for (Employee employee : employeeList) {
-            if (employee.getSalary() > max) {
-                max = employee.getSalary();
-            }
-        }
-        return max;
-    }
-
-    public double minSalary() {
-        double min = 0;
-        for (Employee employee : employeeList) {
-            min = employee.getSalary();
-            if (employee.getSalary() < min) {
-                min = employee.getSalary();
-            }
-        }
-        return min;
-    }
 }

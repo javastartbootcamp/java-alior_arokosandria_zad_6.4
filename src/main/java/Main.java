@@ -1,25 +1,26 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Employee employee = new Employee();
         File file = new File("employees.csv");
-        employee.readEmployeesFile(file);
+        Files files = new Files();
+        List<Employee> employeeList = files.readEmployeesFile(file);
 
         if (file.exists()) {
             File stats = new File("stats.txt");
             stats.createNewFile();
-
+            OperationSalary operationSalary = new OperationSalary();
             FileWriter fileWriter = new FileWriter(stats);
-            fileWriter.write("Średnia wypłata: " + employee.averageSalary() + "\n");
-            fileWriter.write("Minimalna wypłata: " + employee.minSalary() + "\n");
-            fileWriter.write("Maksymalna wypłata: " + employee.maxSalary() + "\n");
-            fileWriter.write("Liczba pracowników IT: " + employee.numberEmployees("IT") + "\n");
-            fileWriter.write("Liczba pracowników Support: " + employee.numberEmployees("Support") + "\n");
-            fileWriter.write("Liczba pracowników Management: " + employee.numberEmployees("Management") + "\n");
+            fileWriter.write("Średnia wypłata: " + operationSalary.averageSalary(employeeList) + "\n");
+            fileWriter.write("Minimalna wypłata: " + operationSalary.minSalary(employeeList) + "\n");
+            fileWriter.write("Maksymalna wypłata: " + operationSalary.maxSalary(employeeList) + "\n");
+            fileWriter.write("Liczba pracowników IT: " + operationSalary.numberEmployees("IT", employeeList) + "\n");
+            fileWriter.write("Liczba pracowników Support: " + operationSalary.numberEmployees("Support", employeeList) + "\n");
+            fileWriter.write("Liczba pracowników Management: " + operationSalary.numberEmployees("Management", employeeList) + "\n");
             fileWriter.close();
         }
 
